@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "134168287655",
+    "project_id": "secondserving-6fde9",
+    "storage_bucket": "secondserving-6fde9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134168287655:android:bcc2d63c00c09e98527e82",
+        "android_client_info": {
+          "package_name": "com.example.secondserving"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_o4R0VrhnhO-6dxnDNoIeuM0aHMz5zlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
