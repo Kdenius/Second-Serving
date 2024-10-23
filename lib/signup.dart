@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:secondserving/login.dart';
 
 import 'homepage.dart';
 
@@ -17,26 +18,26 @@ class _SignupState extends State<Signup> {
   final _confirmpassController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void clear()
-  {
+  void clear() {
     _passwordController.text = "";
     _confirmpassController.text = "";
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/login_background.png'), fit: BoxFit.cover)
+        image: DecorationImage(image: AssetImage('assets/images/login_background.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.limeAccent,
         appBar: AppBar(
           backgroundColor: Colors.white60,
           title: Text('Sign Up Page'),
-          titleTextStyle: TextStyle(backgroundColor: Colors.transparent,fontSize: 24.0, fontWeight: FontWeight.bold,fontFamily: 'TimesNewRoman', color: Colors.red),
+          titleTextStyle: TextStyle(backgroundColor: Colors.transparent, fontSize: 24.0, fontWeight: FontWeight.bold, fontFamily: 'TimesNewRoman', color: Colors.red),
           centerTitle: true,
         ),
-        body: Padding(
+        body: SingleChildScrollView( // Wrap with SingleChildScrollView
           padding: EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
@@ -77,7 +78,6 @@ class _SignupState extends State<Signup> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
                     }
-
                     return null;
                   },
                 ),
@@ -94,18 +94,14 @@ class _SignupState extends State<Signup> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter confirm password';
+                    } else if (value != _passwordController.text) {
+                      return 'Both passwords don\'t match!';
                     }
-                    else if(value != _passwordController.text)
-                    {
-                      return 'Both password doesn\'t match!';
-                    }
-
                     return null;
                   },
                 ),
                 SizedBox(height: 10.0),
                 Row(
-
                   children: [
                     Text(
                       'Already have an account?',
@@ -116,18 +112,18 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'Sign in',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue.shade900,
-                          ),
-                        )
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                      },
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue.shade900,
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -136,15 +132,15 @@ class _SignupState extends State<Signup> {
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       FirebaseAuth.instance.createUserWithEmailAndPassword(
-                          email: _usernameController.text,
-                          password: _passwordController.text).then((value) {
+                        email: _usernameController.text,
+                        password: _passwordController.text,
+                      ).then((value) {
                         print("Successfully created");
                         clear();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                      }).onError((error,stackTrace) {
-                        Fluttertoast.showToast(msg: error.toString(),timeInSecForIosWeb: 3);
-                      }
-                      );
+                      }).onError((error, stackTrace) {
+                        Fluttertoast.showToast(msg: error.toString(), timeInSecForIosWeb: 3);
+                      });
                     }
                   },
                   child: Text(

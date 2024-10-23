@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Signup()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Signup()));
                         },
                         child: Text(
                           'Sign up',
@@ -133,9 +133,6 @@ class _LoginState extends State<Login> {
                       }
                       );
                     }
-                    // SharedPreferences sf = await SharedPreferences.getInstance();
-                    // sf.setString('email', _usernameController.text);
-                    //     Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   child: Text(
                     'Sign in',
